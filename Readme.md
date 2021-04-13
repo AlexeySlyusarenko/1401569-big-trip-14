@@ -1,7 +1,7 @@
 # Проект «Большое путешествие»
 
 * Студент: [Alexey Slyusarenko](https://up.htmlacademy.ru/ecmascript/14/user/1401569).
-* Наставник: `Неизвестно`.
+* Наставник: [Сергей Локтионов](https://htmlacademy.ru/profile/id1526007).
 
 ---
 
