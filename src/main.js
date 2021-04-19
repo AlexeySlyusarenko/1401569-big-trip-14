@@ -1,6 +1,6 @@
 import {createTripElement} from './view/trip.js';
 import {createMenuElement} from './view/menu.js';
-import {createFilterElement} from './view/filters.js';
+import {createFilterElement} from './view/filter.js';
 import {createSortElement} from './view/sort.js';
 import {createPointElement} from './view/point.js';
 import {createFormEditPointElement} from './view/form-edit-point.js';
