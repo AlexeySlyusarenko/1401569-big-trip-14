@@ -1,9 +1,19 @@
-parserOptions:
-  ecmaVersion: 2018
-  sourceType: 'module'
+# parserOptions:
+#   ecmaVersion: 2018
+#   sourceType: 'module'
 
+# env:
+#   es2017: true
+#   browser: true
+
+# extends: 'htmlacademy/vanilla'
+
+parserOptions:
+  sourceType: 'module'
+  ecmaVersion: 2015
+  
 env:
-  es2017: true
+  es6: true
   browser: true
 
-extends: 'htmlacademy/vanilla'
+extends: 'htmlacademy/es6'
