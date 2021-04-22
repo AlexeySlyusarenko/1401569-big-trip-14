@@ -1,4 +1,4 @@
-export const createFormAddPointElement = (...param) => (
+export const createFormAddPointElement = (point = {}) => (
   `<li class="trip-events__item">
     <form class="event event--edit" action="#" method="post">
       <header class="event__header">
@@ -98,7 +98,7 @@ export const createFormAddPointElement = (...param) => (
         <button class="event__reset-btn" type="reset">Cancel</button>
       </header>
       <section class="event__details">
-  ${param.includes(`offer`) ?
+  ${point.includes('offer') ?
     `<section class="event__section  event__section--offers">
       <h3 class="event__section-title  event__section-title--offers">Offers</h3>
 
@@ -148,9 +148,9 @@ export const createFormAddPointElement = (...param) => (
           </label>
         </div>
       </div>
-    </section>` : ``
+    </section>` : ''
   } 
-  ${param.includes(`destination`) ?
+  ${point.includes('destination') ?
     `<section class="event__section  event__section--destination">
       <h3 class="event__section-title  event__section-title--destination">Destination</h3>
       <p class="event__destination-description">Geneva is a city in Switzerland that lies at the southern tip of expansive Lac Léman (Lake Geneva). Surrounded by the Alps and Jura mountains, the city has views of dramatic Mont Blanc.</p>
@@ -164,7 +164,7 @@ export const createFormAddPointElement = (...param) => (
           <img class="event__photo" src="img/photos/5.jpg" alt="Event photo">
         </div>
       </div>
-    </section>` : ``
+    </section>` : ''
   }
        </section>
       </form>
