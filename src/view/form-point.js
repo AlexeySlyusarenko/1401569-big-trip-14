@@ -20,11 +20,11 @@ export const showFormPointElement = (
 
   const date = datePoint(defaultPoint.dateFrom, defaultPoint.dateTo);
 
-  const typeListElement = `${offers.reduce((accumulator, offer) => (
+  const typeListElement = `${offers.reduce((accumulator, offer, index) => (
     `${accumulator}
     <div class="event__type-item">
-      <input id="event-type-${offer.type}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${offer.type}">
-      <label class="event__type-label  event__type-label--${offer.type}" for="event-type-${offer.type}-1">${offer.type}</label>
+      <input id="event-type-${offer.type}-${index + 1}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${offer.type}">
+      <label class="event__type-label  event__type-label--${offer.type}" for="event-type-${offer.type}-${index + 1}">${offer.type}</label>
     </div>`
   ), '')}`;
 
@@ -39,11 +39,11 @@ export const showFormPointElement = (
     </button>` :
     '';
 
-  const offerSelectorListElement = defaultPoint.offers.reduce((accumulator, offer) => (
+  const offerSelectorListElement = defaultPoint.offers.reduce((accumulator, offer, index) => (
     `${accumulator}
     <div class="event__offer-selector">
-      <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage">
-      <label class="event__offer-label" for="event-offer-luggage-1">
+      <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-${index + 1}" type="checkbox" name="event-offer-luggage">
+      <label class="event__offer-label" for="event-offer-luggage-${index + 1}">
         <span class="event__offer-title">${offer.title}</span>
         &plus;&euro;&nbsp;
         <span class="event__offer-price">${offer.price}</span>
