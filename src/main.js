@@ -1,3 +1,5 @@
+import {FILTER_LIST} from './const/data-filters.js';
+
 import {createTripElement} from './view/trip.js';
 import {createMenuElement} from './view/menu.js';
 import {createFilterElement} from './view/filter.js';
@@ -23,7 +25,7 @@ insertElement(tripMainElem, createTripElement(), 'afterbegin');
 
 const tripControlsElem = tripMainElem.querySelector('.trip-controls');
 insertElement(tripControlsElem, createMenuElement());
-insertElement(tripControlsElem, createFilterElement());
+insertElement(tripControlsElem, createFilterElement(FILTER_LIST));
 
 const tripEventsElem = siteMainElem.querySelector('.trip-events');
 insertElement(tripEventsElem, createSortElement());
