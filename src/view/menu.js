@@ -1,6 +1,12 @@
-export const createMenuElement = () => (
+import {setCapitalLetter} from '../utils/string.js';
+
+export const createMenuElement = (menu = []) => (
   `<nav class="trip-controls__trip-tabs  trip-tabs">
-    <a class="trip-tabs__btn  trip-tabs__btn--active" href="#">Table</a>
-    <a class="trip-tabs__btn" href="#">Stats</a>
+
+  ${menu.reduce((accumulator, item, index) => (
+    `${accumulator}
+    <a class="trip-tabs__btn ${index ? 'trip-tabs__btn--active' : ''}" href="#">${setCapitalLetter(item)}</a>`
+  ), '')}
+
   </nav>`
 );
