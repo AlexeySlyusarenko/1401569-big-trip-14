@@ -3,10 +3,13 @@ import {createMenuElement} from './view/menu.js';
 import {createFilterElement} from './view/filter.js';
 import {createSortElement} from './view/sort.js';
 import {createPointElement} from './view/point.js';
-import {createFormEditPointElement} from './view/form-edit-point.js';
-import {createFormAddPointElement} from './view/form-add-point.js';
+import {showFormPointElement} from './view/form-point.js';
 
-import {mockPoints} from './mocks/mock.js';
+import {
+  mockPoints,
+  mockCities,
+  mockOffers
+} from './mocks/mock.js';
 
 const insertElement = (containerElem, elementStr, placeStr = 'beforeend') => {
   containerElem.insertAdjacentHTML(placeStr, elementStr);
@@ -31,7 +34,4 @@ const tripEventsListElement = tripEventsElem.querySelector('.trip-events__list')
 for (const point of mockPoints) {
   insertElement(tripEventsListElement, createPointElement(point));
 }
-insertElement(tripEventsListElement, createFormEditPointElement(), 'afterbegin');
-insertElement(tripEventsListElement, createFormAddPointElement('offer', 'destination'));
-insertElement(tripEventsListElement, createFormAddPointElement('offer'));
-insertElement(tripEventsListElement, createFormAddPointElement('destination'));
+insertElement(tripEventsListElement, showFormPointElement(mockCities, mockOffers), 'afterbegin');

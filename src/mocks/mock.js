@@ -36,5 +36,7 @@ for (let i = 0; i < NUMBER_POINT; i++) {
 }
 
 export {
-  mockPoints
+  mockPoints,
+  mockCities,
+  mockOffers
 };

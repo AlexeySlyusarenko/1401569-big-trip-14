@@ -29,14 +29,14 @@ export const datePoint = (dateFrom, dateTo) => ({
     return this.getTimeDescription(this._end);
   },
 
-  getTextTime(time, suffix) {
+  getTextTime(time, suffix = '') {
     if (time === 0) {
       return '';
     }
 
     return time < 10 ?
-      `0${time}${suffix} ` :
-      `${time}${suffix} `;
+      `0${time}${suffix}` :
+      `${time}${suffix}`;
   },
 
   getDuration() {
@@ -45,6 +45,22 @@ export const datePoint = (dateFrom, dateTo) => ({
     const hours = Math.floor((duration - days * 86400000) / 3600000);
     const minutes = Math.ceil((duration - days * 86400000 - hours * 3600000) / 60000);
 
-    return `${this.getTextTime(days, 'D')}${this.getTextTime(hours, 'H')}${this.getTextTime(minutes, 'M')}`;
+    return `${this.getTextTime(days, 'D ')}${this.getTextTime(hours, 'H ')}${this.getTextTime(minutes, 'M ')}`;
+  },
+
+  getInputTime(date) {
+    const day = this.getTextTime(date.getDate());
+    const month = this.getTextTime(date.getMonth() + 1);
+    const year = this.getTextTime(date.getFullYear());
+    const hours = this.getTextTime(date.getHours());
+    const minutes = this.getTextTime(date.getMinutes());
+
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
+  },
+  getInputDateFrom() {
+    return this.getInputTime(this._start);
+  },
+  getInputDateTo() {
+    return this.getInputTime(this._end);
   },
 });
