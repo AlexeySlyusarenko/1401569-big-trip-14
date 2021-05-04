@@ -1,17 +1,40 @@
 import {setCapitalLetter} from '../utils/string.js';
+import {createElement} from '../utils/element.js';
 
-export const createMenuElement = () => {
-  const MENU_LIST = [
-    'table',
-    'stats',
-  ];
+export default class MenuElement {
+  constructor() {
+    this._element = null;
+  }
 
-  return `<nav class="trip-controls__trip-tabs  trip-tabs">
+  _createElement() {
+    const MENU_LIST = [
+      'table',
+      'stats',
+    ];
 
-  ${MENU_LIST.reduce((accumulator, item, index) => (
-    `${accumulator}
-    <a class="trip-tabs__btn ${index ? 'trip-tabs__btn--active' : ''}" href="#">${setCapitalLetter(item)}</a>`
-  ), '')}
+    const menuElement = MENU_LIST.reduce((accumulator, item, index) => (
+      `${accumulator}
+      <a class="trip-tabs__btn ${index ? 'trip-tabs__btn--active' : ''}" href="#">${setCapitalLetter(item)}</a>`
+    ), '');
 
-  </nav>`;
-};
+    return `<nav class="trip-controls__trip-tabs  trip-tabs">
+              ${menuElement}
+            </nav>`;
+  }
+
+  getTemplate() {
+    return this._createElement();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

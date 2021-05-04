@@ -1,20 +1,44 @@
-export const createFilterElement = () => {
-  const FILTER_LIST = [
-    'everything',
-    'future',
-    'past',
-  ];
+import {createElement} from '../utils/element.js';
 
-  return `<form class="trip-filters" action="#" method="get">
+export default class FilterElement {
+  constructor() {
+    this._element = null;
+  }
 
-  ${FILTER_LIST.reduce((accumulator, filter) => (
-    `${accumulator}
-    <div class="trip-filters__filter">
-      <input id="filter-${filter}" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${filter}" checked>
-      <label class="trip-filters__filter-label" for="filter-${filter}">${filter}</label>
-    </div>`
-  ), '')}
+  _createElement() {
+    const FILTER_LIST = [
+      'everything',
+      'future',
+      'past',
+    ];
 
-    <button class="visually-hidden" type="submit">Accept filter</button>
-  </form>`;
-};
+    const filtersElement = FILTER_LIST.reduce((accumulator, filter) => (
+      `${accumulator}
+        <div class="trip-filters__filter">
+          <input id="filter-${filter}" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${filter}" checked>
+          <label class="trip-filters__filter-label" for="filter-${filter}">${filter}</label>
+        </div>`
+    ), '');
+
+    return `<form class="trip-filters" action="#" method="get">
+              ${filtersElement}
+              <button class="visually-hidden" type="submit">Accept filter</button>
+            </form>`;
+  }
+
+  getTemplate() {
+    return this._createElement();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
