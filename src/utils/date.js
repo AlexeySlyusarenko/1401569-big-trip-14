@@ -70,7 +70,7 @@ const datePoint = (dateFrom, dateTo) => ({
     const hours = this.getTextTime(date.getHours());
     const minutes = this.getTextTime(date.getMinutes());
 
-    return `${day}/${month}/${year} ${hours}:${minutes}`;
+    return `${day}/${month}/${year.slice(2)} ${hours}:${minutes}`;
   },
   getInputDateFrom() {
     return this.getInputTime(this._start);
