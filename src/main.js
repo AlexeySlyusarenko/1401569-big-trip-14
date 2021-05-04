@@ -23,7 +23,7 @@ const siteHeaderElem = document.querySelector('.page-header');
 const siteMainElem = document.querySelector('.page-main');
 
 const tripMainElem = siteHeaderElem.querySelector('.trip-main');
-insertElement(tripMainElem, createTripElement(), 'afterbegin');
+insertElement(tripMainElem, createTripElement(mockPoints), 'afterbegin');
 
 const tripControlsElem = tripMainElem.querySelector('.trip-controls');
 insertElement(tripControlsElem, createMenuElement(MENU_LIST));
