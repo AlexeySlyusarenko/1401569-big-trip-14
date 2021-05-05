@@ -34,7 +34,7 @@ tripEventsElem.insertAdjacentHTML(
 );
 
 const tripEventsListElement = tripEventsElem.querySelector('.trip-events__list');
-const renderPoint = (container, point) => {
+const renderPoint = (container, point, mockCities, mockOffers) => {
   const pointComponent = new PointElement(point);
   const pointFormComponent = new FormPointElement(mockCities, mockOffers, point);
 
@@ -54,5 +54,5 @@ const renderPoint = (container, point) => {
 };
 
 for (const point of mockPoints) {
-  renderPoint(tripEventsListElement, point);
+  renderPoint(tripEventsListElement, point, mockCities, mockOffers);
 }
