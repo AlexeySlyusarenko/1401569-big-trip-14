@@ -34,6 +34,7 @@ tripEventsElem.insertAdjacentHTML(
 );
 
 const tripEventsListElement = tripEventsElem.querySelector('.trip-events__list');
+
 const renderPoint = (container, point, mockCities, mockOffers) => {
   const pointComponent = new PointElement(point);
   const pointFormComponent = new FormPointElement(mockCities, mockOffers, point);
