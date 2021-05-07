@@ -1,16 +1,12 @@
 import {getRandomInteger} from '../utils/random.js';
 
-const getMockOffer = (type = '', dataList = []) => {
-  const generateOffers = () => (
-    dataList.filter(() => getRandomInteger(0, 1))
-  );
+const generateOffers = (dataList) => (
+  dataList.filter(() => getRandomInteger(0, 1))
+);
 
+export const getMockOffer = (type = '', dataList = []) => {
   return {
     type: type,
-    offers: generateOffers(),
+    offers: generateOffers(dataList),
   };
-};
-
-export {
-  getMockOffer
 };

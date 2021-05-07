@@ -1,7 +1,13 @@
-export const createFilterElement = (filters = []) => (
-  `<form class="trip-filters" action="#" method="get">
+export const createFilterElement = () => {
+  const FILTER_LIST = [
+    'everything',
+    'future',
+    'past',
+  ];
 
-  ${filters.reduce((accumulator, filter) => (
+  return `<form class="trip-filters" action="#" method="get">
+
+  ${FILTER_LIST.reduce((accumulator, filter) => (
     `${accumulator}
     <div class="trip-filters__filter">
       <input id="filter-${filter}" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${filter}" checked>
@@ -10,5 +16,5 @@ export const createFilterElement = (filters = []) => (
   ), '')}
 
     <button class="visually-hidden" type="submit">Accept filter</button>
-  </form>`
-);
+  </form>`;
+};

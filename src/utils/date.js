@@ -1,4 +1,4 @@
-const datePoint = (dateFrom, dateTo) => ({
+export const datePoint = (dateFrom, dateTo) => ({
   _start: new Date(dateFrom),
   _end: new Date(dateTo),
 
@@ -80,7 +80,7 @@ const datePoint = (dateFrom, dateTo) => ({
   },
 });
 
-const compareDay = (previousDate, currentDate) => {
+export const compareDay = (previousDate, currentDate) => {
   const current = currentDate.replace(/[-,T,.,:,Z]/ig, '');
   const previous = previousDate.replace(/[-,T,.,:,Z]/ig, '');
 
@@ -91,9 +91,4 @@ const compareDay = (previousDate, currentDate) => {
   } else {
     return -1;
   }
-};
-
-export {
-  datePoint,
-  compareDay
 };

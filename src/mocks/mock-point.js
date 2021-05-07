@@ -1,19 +1,19 @@
 import {getRandomInteger} from '../utils/random.js';
 
-const getMockPoint = (city = {}, offer = {}, id = getRandomInteger(1000, 1000000)) => {
-  const getRandomDate = () => {
-    const start = new Date();
-    const end = new Date();
+const getRandomDate = () => {
+  const start = new Date();
+  const end = new Date();
 
-    start.setTime(Date.now() + getRandomInteger(10000000, 100000000));
-    end.setTime(start.getTime() + getRandomInteger(10000000, 500000000));
+  start.setTime(Date.now() + getRandomInteger(10000000, 100000000));
+  end.setTime(start.getTime() + getRandomInteger(10000000, 500000000));
 
-    return {
-      start: start.toISOString(),
-      end: end.toISOString(),
-    };
+  return {
+    start: start.toISOString(),
+    end: end.toISOString(),
   };
+};
 
+export const getMockPoint = (city = {}, offer = {}, id = getRandomInteger(1000, 1000000)) => {
   const date = getRandomDate();
 
   return {
@@ -26,8 +26,4 @@ const getMockPoint = (city = {}, offer = {}, id = getRandomInteger(1000, 1000000
     offers: offer.offers,
     type: offer.type,
   };
-};
-
-export {
-  getMockPoint
 };

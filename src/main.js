@@ -1,5 +1,3 @@
-import {FILTER_LIST} from './const/data-filters.js';
-import {MENU_LIST} from './const/data-menu.js';
 import {TRIP_SORT_LIST} from './const/data-trip-sort';
 
 import {createTripElement} from './view/trip.js';
@@ -26,8 +24,8 @@ const tripMainElem = siteHeaderElem.querySelector('.trip-main');
 insertElement(tripMainElem, createTripElement(mockPoints), 'afterbegin');
 
 const tripControlsElem = tripMainElem.querySelector('.trip-controls');
-insertElement(tripControlsElem, createMenuElement(MENU_LIST));
-insertElement(tripControlsElem, createFilterElement(FILTER_LIST));
+insertElement(tripControlsElem, createMenuElement());
+insertElement(tripControlsElem, createFilterElement());
 
 const tripEventsElem = siteMainElem.querySelector('.trip-events');
 insertElement(tripEventsElem, createSortElement(TRIP_SORT_LIST));

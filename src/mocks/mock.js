@@ -9,22 +9,22 @@ import {
 
 import {getRandomInteger} from '../utils/random.js';
 
-import { getMockCity } from './mock-city.js';
-import { getMockOffer } from './mock-offer.js';
-import { getMockPoint } from './mock-point.js';
+import {getMockCity} from './mock-city.js';
+import {getMockOffer} from './mock-offer.js';
+import {getMockPoint} from './mock-point.js';
 
-const mockCities = [];
-const mockOffers = [];
-const mockPoints = [];
+export const mockCities = [];
+export const mockOffers = [];
+export const mockPoints = [];
 const NUMBER_POINT = 30;
 
-for (const value of CITY_LIST) {
+CITY_LIST.forEach((value) => {
   mockCities.push(getMockCity(value, CITY_DESCRIPTION));
-}
+});
 
-for (const value of TYPE_LIST) {
+TYPE_LIST.forEach((value) => {
   mockOffers.push(getMockOffer(value, DATA_LIST));
-}
+});
 
 for (let i = 0; i < NUMBER_POINT; i++) {
   mockPoints.push(
@@ -34,9 +34,3 @@ for (let i = 0; i < NUMBER_POINT; i++) {
     ),
   );
 }
-
-export {
-  mockPoints,
-  mockCities,
-  mockOffers
-};
