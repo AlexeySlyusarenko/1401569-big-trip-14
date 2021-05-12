@@ -81,8 +81,8 @@ export const datePoint = (dateFrom, dateTo) => ({
 });
 
 export const compareDay = (previousDate, currentDate) => {
-  const current = currentDate.replace(/[-,T,.,:,Z]/ig, '');
-  const previous = previousDate.replace(/[-,T,.,:,Z]/ig, '');
+  const current = new Date(previousDate).getTime();
+  const previous = new Date(currentDate).getTime();
 
   if (previous < current) {
     return 1;

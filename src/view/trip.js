@@ -4,29 +4,25 @@ import {
 } from '../utils/date.js';
 
 export const createTripElement = (points) => {
-  let  i = 0;
-  let dateFrom = points[i].dateFrom;
-  let dateTo = points[i].dateTo;
-
-  while (i < points.length - 1) {
-    i++;
-    if (compareDay(dateFrom, points[i].dateFrom) === -1) {
-      dateFrom = points[i].dateFrom;
-    }
-    if (compareDay(dateTo, points[i].dateTo) === 1) {
-      dateTo = points[i].dateTo;
-    }
-  }
-
-  const date = datePoint(dateFrom, dateTo).getTripDuration();
-
-  const cityList = new Set();
-  let cost = 0;
+  let maxDateFrom = points[0].dateFrom;
+  let maxDateTo = points[0].dateTo;
 
   points.forEach((point) => {
-    cityList.add(point.destination.name);
-    cost += point.basePrice;
+    if (compareDay(maxDateFrom, point.dateFrom) === 1) {
+      maxDateFrom = point.dateFrom;
+    }
+    if (compareDay(maxDateTo, point.dateTo) === -1) {
+      maxDateTo = point.dateTo;
+    }
   });
+
+  const date = datePoint(maxDateFrom, maxDateTo).getTripDuration();
+
+  const cityList = new Set();
+  const cost = points.reduce((accumulator, point) => (
+    cityList.add(point.destination.name),
+    point.basePrice = accumulator + point.basePrice
+  ), 0);
 
   const tripInfo =
     cityList.size < 3 ?
