@@ -41,13 +41,15 @@ const tripEventsListElement = tripEventsElement.querySelector('.trip-events__lis
 const renderPoint = (container, point, mockCities, mockOffers) => {
   const pointComponent = new PointElement(point);
   const pointFormComponent = new FormPointElement(mockCities, mockOffers, point);
+  const pointElement = pointComponent.getElement();
+  const pointFormElement = pointFormComponent.getElement();
 
   const showFormEditPoint = () => {
-    container.replaceChild(pointFormComponent.getElement(), pointComponent.getElement());
+    container.replaceChild(pointFormElement, pointElement);
     document.addEventListener('keydown', onEscKeyDown);
   };
   const hideFormEditPoint = () => {
-    container.replaceChild(pointComponent.getElement(), pointFormComponent.getElement());
+    container.replaceChild(pointElement, pointFormElement);
     document.removeEventListener('keydown', onEscKeyDown);
   };
   const onEscKeyDown = (event) => {
@@ -57,17 +59,17 @@ const renderPoint = (container, point, mockCities, mockOffers) => {
     }
   };
 
-  renderElement(container, pointComponent.getElement());
+  renderElement(container, pointElement);
 
-  pointComponent.getElement().querySelector('.event__rollup-btn').addEventListener('click', () => {
+  pointElement.querySelector('.event__rollup-btn').addEventListener('click', () => {
     showFormEditPoint();
   });
 
-  pointFormComponent.getElement().querySelector('.event__rollup-btn').addEventListener('click', () => {
+  pointFormElement.querySelector('.event__rollup-btn').addEventListener('click', () => {
     hideFormEditPoint();
   });
 
-  pointFormComponent.getElement().querySelector('form').addEventListener('submit', (evt) => {
+  pointFormElement.querySelector('form').addEventListener('submit', (evt) => {
     evt.preventDefault();
     hideFormEditPoint();
   });
