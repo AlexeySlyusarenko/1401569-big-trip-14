@@ -42,18 +42,34 @@ const renderPoint = (container, point, mockCities, mockOffers) => {
   const pointComponent = new PointElement(point);
   const pointFormComponent = new FormPointElement(mockCities, mockOffers, point);
 
+  const showFormEditPoint = () => {
+    container.replaceChild(pointFormComponent.getElement(), pointComponent.getElement());
+    document.addEventListener('keydown', onEscKeyDown);
+  };
+  const hideFormEditPoint = () => {
+    container.replaceChild(pointComponent.getElement(), pointFormComponent.getElement());
+    document.removeEventListener('keydown', onEscKeyDown);
+  };
+  const onEscKeyDown = (event) => {
+    if (event.key === 'Escape' || event.key === 'Esc') {
+      event.preventDefault();
+      hideFormEditPoint();
+    }
+  };
+
   renderElement(container, pointComponent.getElement());
 
   pointComponent.getElement().querySelector('.event__rollup-btn').addEventListener('click', () => {
-    container.replaceChild(pointFormComponent.getElement(), pointComponent.getElement());
+    showFormEditPoint();
   });
 
   pointFormComponent.getElement().querySelector('.event__rollup-btn').addEventListener('click', () => {
-    container.replaceChild(pointComponent.getElement(), pointFormComponent.getElement());
+    hideFormEditPoint();
   });
 
-  pointFormComponent.getElement().querySelector('form').addEventListener('submit', () => {
-    container.replaceChild(pointComponent.getElement(), pointFormComponent.getElement());
+  pointFormComponent.getElement().querySelector('form').addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    hideFormEditPoint();
   });
 };
 
