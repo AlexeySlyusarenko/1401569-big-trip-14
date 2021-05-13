@@ -21,8 +21,15 @@ import {
 const siteHeaderElement = document.querySelector('.page-header');
 const siteMainElement = document.querySelector('.page-main');
 
+<<<<<<< HEAD
 const tripMainElem = siteHeaderElement.querySelector('.trip-main');
 renderElement(tripMainElem, new TripElement(mockPoints).getElement(), 'afterbegin');
+=======
+const tripMainElem = siteHeaderElem.querySelector('.trip-main');
+if(mockPoints.length) {
+  renderElement(tripMainElem, new TripElement(mockPoints).getElement(), 'afterbegin');
+}
+>>>>>>> d5dc917 (Добавил сообщение о пустом списке)
 
 const tripControlsElem = tripMainElem.querySelector('.trip-controls');
 renderElement(tripControlsElem, new MenuElement().getElement());
@@ -36,8 +43,11 @@ renderElement(
   createElement('<ul class="trip-events__list"></ul>'),
 );
 
+<<<<<<< HEAD
 const tripEventsListElement = tripEventsElement.querySelector('.trip-events__list');
 
+=======
+>>>>>>> d5dc917 (Добавил сообщение о пустом списке)
 const renderPoint = (container, point, mockCities, mockOffers) => {
   const pointComponent = new PointElement(point);
   const pointFormComponent = new FormPointElement(mockCities, mockOffers, point);
@@ -75,6 +85,25 @@ const renderPoint = (container, point, mockCities, mockOffers) => {
   });
 };
 
-for (const point of mockPoints) {
-  renderPoint(tripEventsListElement, point, mockCities, mockOffers);
-}
+const renderPointList = (container, pointsList) => {
+  if (!pointsList.length) {
+    container.insertAdjacentHTML(
+      'beforeend',
+      '<p class="trip-events__msg">Click New Event to create your first point</p>',
+    );
+
+    return;
+  }
+
+  container.insertAdjacentHTML(
+    'beforeend',
+    '<ul class="trip-events__list"></ul>',
+  );
+  const tripListElement = container.querySelector('.trip-events__list');
+
+  for (const point of mockPoints) {
+    renderPoint(tripListElement, point, mockCities, mockOffers);
+  }
+};
+
+renderPointList(tripEventsElem, mockPoints);
