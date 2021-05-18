@@ -1,11 +1,16 @@
 import {TRIP_SORT_LIST} from './const/data-trip-sort';
 
-import {createTripElement} from './view/trip.js';
-import {createMenuElement} from './view/menu.js';
-import {createFilterElement} from './view/filter.js';
-import {createSortElement} from './view/sort.js';
-import {createPointElement} from './view/point.js';
-import {showFormPointElement} from './view/form-point.js';
+import {
+  createElement,
+  renderElement
+} from './utils/element.js';
+
+import TripElement from './view/trip.js';
+import MenuElement from './view/menu.js';
+import FilterElement from './view/filter.js';
+import SortElement from './view/sort.js';
+import PointElement from './view/point.js';
+import FormPointElement from './view/form-point.js';
 
 import {
   mockPoints,
@@ -13,27 +18,45 @@ import {
   mockOffers
 } from './mocks/mock.js';
 
-const insertElement = (containerElem, elementStr, placeStr = 'beforeend') => {
-  containerElem.insertAdjacentHTML(placeStr, elementStr);
-};
+const siteHeaderElement = document.querySelector('.page-header');
+const siteMainElement = document.querySelector('.page-main');
 
-const siteHeaderElem = document.querySelector('.page-header');
-const siteMainElem = document.querySelector('.page-main');
-
-const tripMainElem = siteHeaderElem.querySelector('.trip-main');
-insertElement(tripMainElem, createTripElement(mockPoints), 'afterbegin');
+const tripMainElem = siteHeaderElement.querySelector('.trip-main');
+renderElement(tripMainElem, new TripElement(mockPoints).getElement(), 'afterbegin');
 
 const tripControlsElem = tripMainElem.querySelector('.trip-controls');
-insertElement(tripControlsElem, createMenuElement());
-insertElement(tripControlsElem, createFilterElement());
+renderElement(tripControlsElem, new MenuElement().getElement());
+renderElement(tripControlsElem, new FilterElement().getElement());
 
-const tripEventsElem = siteMainElem.querySelector('.trip-events');
-insertElement(tripEventsElem, createSortElement(TRIP_SORT_LIST));
+const tripEventsElement = siteMainElement.querySelector('.trip-events');
+renderElement(tripEventsElement, new SortElement(TRIP_SORT_LIST).getElement());
 
-insertElement(tripEventsElem, '<ul class="trip-events__list"></ul>');
+renderElement(
+  tripEventsElement,
+  createElement('<ul class="trip-events__list"></ul>'),
+);
 
-const tripEventsListElement = tripEventsElem.querySelector('.trip-events__list');
+const tripEventsListElement = tripEventsElement.querySelector('.trip-events__list');
+
+const renderPoint = (container, point, mockCities, mockOffers) => {
+  const pointComponent = new PointElement(point);
+  const pointFormComponent = new FormPointElement(mockCities, mockOffers, point);
+
+  renderElement(container, pointComponent.getElement());
+
+  pointComponent.getElement().querySelector('.event__rollup-btn').addEventListener('click', () => {
+    container.replaceChild(pointFormComponent.getElement(), pointComponent.getElement());
+  });
+
+  pointFormComponent.getElement().querySelector('.event__rollup-btn').addEventListener('click', () => {
+    container.replaceChild(pointComponent.getElement(), pointFormComponent.getElement());
+  });
+
+  pointFormComponent.getElement().querySelector('form').addEventListener('submit', () => {
+    container.replaceChild(pointComponent.getElement(), pointFormComponent.getElement());
+  });
+};
+
 for (const point of mockPoints) {
-  insertElement(tripEventsListElement, createPointElement(point));
+  renderPoint(tripEventsListElement, point, mockCities, mockOffers);
 }
-insertElement(tripEventsListElement, showFormPointElement(mockCities, mockOffers), 'afterbegin');
