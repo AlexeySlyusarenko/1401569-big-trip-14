@@ -146,9 +146,31 @@ export default class PointFormElement extends AbstractElement{
     this._cities = cities;
     this._offers = offers;
     this._point = point;
+
+    this._callback = {};
+    this._clickHandler = this._clickHandler.bind(this);
+    this._submitHandler = this._submitHandler.bind(this);
   }
 
   getTemplate() {
     return createTemplate(this._cities, this._offers, this._point);
+  }
+
+  _clickHandler(event) {
+    event.preventDefault();
+    this._callback.click();
+  }
+  setClickHandler(cb) {
+    this._callback.click = cb;
+    this.getElement().querySelector('.event__rollup-btn').addEventListener('click', this._clickHandler);
+  }
+
+  _submitHandler(event) {
+    event.preventDefault();
+    this._callback.submit(event);
+  }
+  setSubmitHandler(cb) {
+    this._callback.submit = cb;
+    this.getElement().querySelector('form').addEventListener('submit', this._submitHandler);
   }
 }

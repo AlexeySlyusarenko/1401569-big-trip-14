@@ -59,9 +59,22 @@ export default class PointElement extends AbstractElement {
     super();
 
     this._point = point;
+
+    this._callback = {};
+    this._clickHandler = this._clickHandler.bind(this);
   }
 
   getTemplate() {
     return createTemplate(this._point);
+  }
+
+  _clickHandler(event) {
+    event.preventDefault();
+    this._callback.click();
+  }
+
+  setClickHandler(cb) {
+    this._callback.click = cb;
+    this.getElement().querySelector('.event__rollup-btn').addEventListener('click', this._clickHandler);
   }
 }

@@ -1,9 +1,11 @@
 import {TRIP_SORT_LIST} from './const/data-trip-sort';
 
 import {
-  createElement,
   renderElement
 } from './utils/element.js';
+import {
+  createPoint
+} from './utils/point.js';
 
 import TripElement from './view/trip.js';
 import MenuElement from './view/menu.js';
@@ -11,6 +13,8 @@ import FilterElement from './view/filter.js';
 import SortElement from './view/sort.js';
 import PointElement from './view/point.js';
 import FormPointElement from './view/form-point.js';
+import PointEmptyListElement from './view/point-list-empty.js';
+import PointListElement from './view/point-list.js';
 
 import {
   mockPoints,
@@ -23,73 +27,28 @@ const siteMainElement = document.querySelector('.page-main');
 
 const tripMainElement = siteHeaderElement.querySelector('.trip-main');
 if(mockPoints.length) {
-  renderElement(tripMainElement, new TripElement(mockPoints).getElement(), 'afterbegin');
+  renderElement(tripMainElement, new TripElement(mockPoints), 'afterbegin');
 }
 
 const tripControlsElement = tripMainElement.querySelector('.trip-controls');
-renderElement(tripControlsElement, new MenuElement().getElement());
-renderElement(tripControlsElement, new FilterElement().getElement());
+renderElement(tripControlsElement, new MenuElement());
+renderElement(tripControlsElement, new FilterElement());
 
 const tripEventsElement = siteMainElement.querySelector('.trip-events');
-renderElement(tripEventsElement, new SortElement(TRIP_SORT_LIST).getElement());
+renderElement(tripEventsElement, new SortElement(TRIP_SORT_LIST));
 
-const renderPoint = (container, point, mockCities, mockOffers) => {
-  const pointComponent = new PointElement(point);
-  const pointFormComponent = new FormPointElement(mockCities, mockOffers, point);
-  const pointElement = pointComponent.getElement();
-  const pointFormElement = pointFormComponent.getElement();
+if (mockPoints.length) {
+  const pointList = new PointListElement();
 
-  const showFormEditPoint = () => {
-    container.replaceChild(pointFormElement, pointElement);
-    document.addEventListener('keydown', onEscKeyDown);
-  };
-  const hideFormEditPoint = () => {
-    container.replaceChild(pointElement, pointFormElement);
-    document.removeEventListener('keydown', onEscKeyDown);
-  };
-  const onEscKeyDown = (event) => {
-    if (event.key === 'Escape' || event.key === 'Esc') {
-      event.preventDefault();
-      hideFormEditPoint();
-    }
-  };
-
-  renderElement(container, pointElement);
-
-  pointElement.querySelector('.event__rollup-btn').addEventListener('click', () => {
-    showFormEditPoint();
-  });
-
-  pointFormElement.querySelector('.event__rollup-btn').addEventListener('click', () => {
-    hideFormEditPoint();
-  });
-
-  pointFormElement.querySelector('form').addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    hideFormEditPoint();
-  });
-};
-
-const renderPointList = (container, pointsList) => {
-  if (!pointsList.length) {
-    renderElement(
-      tripEventsElement,
-      createElement('<p class="trip-events__msg">Click New Event to create your first point</p>'),
-    );
-
-    return;
-  }
-
-  renderElement(
-    tripEventsElement,
-    createElement('<ul class="trip-events__list"></ul>'),
-  );
-
-  const tripListElement = container.querySelector('.trip-events__list');
+  renderElement(tripEventsElement, pointList);
 
   for (const point of mockPoints) {
-    renderPoint(tripListElement, point, mockCities, mockOffers);
+    createPoint(
+      pointList,
+      new PointElement(point),
+      new FormPointElement(mockCities, mockOffers, point),
+    );
   }
-};
-
-renderPointList(tripEventsElement, mockPoints);
+} else {
+  renderElement(tripEventsElement, new PointEmptyListElement());
+}
