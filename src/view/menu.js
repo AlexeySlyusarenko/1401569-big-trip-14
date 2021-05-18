@@ -1,5 +1,5 @@
 import {setCapitalLetter} from '../utils/string.js';
-import {createElement} from '../utils/element.js';
+import AbstractElement from './abstract-element.js';
 
 const createTemplate = () => {
   const MENU_LIST = [
@@ -16,24 +16,12 @@ const createTemplate = () => {
             ${menuElement}
           </nav>`;
 };
-export default class MenuElement {
+export default class MenuElement extends AbstractElement {
   constructor() {
-    this._element = null;
+    super();
   }
 
   getTemplate() {
     return createTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

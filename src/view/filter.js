@@ -1,4 +1,4 @@
-import {createElement} from '../utils/element.js';
+import AbstractElement from './abstract-element.js';
 
 const createTemplate = () => {
   const FILTER_LIST = [
@@ -20,24 +20,12 @@ const createTemplate = () => {
             <button class="visually-hidden" type="submit">Accept filter</button>
           </form>`;
 };
-export default class FilterElement {
+export default class FilterElement extends AbstractElement {
   constructor() {
-    this._element = null;
+    super();
   }
 
   getTemplate() {
     return createTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

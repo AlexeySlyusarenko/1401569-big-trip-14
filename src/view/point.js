@@ -1,5 +1,5 @@
 import {datePoint} from '../utils/date.js';
-import {createElement} from '../utils/element.js';
+import AbstractElement from './abstract-element.js';
 
 const createTemplate = ({
   type,
@@ -54,26 +54,14 @@ const createTemplate = ({
             </div>
           </li>`;
 };
-export default class PointElement {
+export default class PointElement extends AbstractElement {
   constructor(point) {
-    this._point = point;
+    super();
 
-    this._element = null;
+    this._point = point;
   }
 
   getTemplate() {
     return createTemplate(this._point);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

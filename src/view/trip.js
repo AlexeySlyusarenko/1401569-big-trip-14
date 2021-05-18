@@ -2,7 +2,7 @@ import {
   datePoint,
   compareDay
 } from '../utils/date.js';
-import {createElement} from '../utils/element.js';
+import AbstractElement from './abstract-element.js';
 
 const createTemplate = (points) => {
   let maxDateFrom = points[0].dateFrom;
@@ -42,26 +42,14 @@ const createTemplate = (points) => {
             </p>
           </section>`;
 };
-export default class TripElement {
+export default class TripElement extends AbstractElement {
   constructor(points) {
-    this._points = points;
+    super();
 
-    this._element = null;
+    this._points = points;
   }
 
   getTemplate() {
     return createTemplate(this._points);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

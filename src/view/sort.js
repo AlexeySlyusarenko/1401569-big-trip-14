@@ -1,4 +1,4 @@
-import {createElement} from '../utils/element.js';
+import AbstractElement from './abstract-element.js';
 
 const createTemplate = (sort) => {
   const sortElement = sort.reduce((accumulator, item) => (
@@ -13,26 +13,14 @@ const createTemplate = (sort) => {
             ${sortElement}
           </form>`;
 };
-export default class SortElement {
+export default class SortElement extends AbstractElement {
   constructor(sort = []) {
+    super();
+
     this._sort = sort;
-
-    this._element = null;
   }
 
-  getTemplate(sort) {
-    return createTemplate(sort);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate(this._sort));
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+  getTemplate() {
+    return createTemplate(this._sort);
   }
 }

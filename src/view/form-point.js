@@ -1,9 +1,8 @@
 import {
   datePoint
 } from '../utils/date.js';
-import {
-  createElement
-} from '../utils/element.js';
+import AbstractElement from './abstract-element.js';
+
 
 const createTemplate = (cities = [], offers = [], point) => {
   const defaultPoint = point ?
@@ -140,28 +139,16 @@ ${defaultPoint.destination.pictures.reduce((accumulator, picture) => (
             </form>
           </li>`;
 };
-export default class PointFormElement {
+export default class PointFormElement extends AbstractElement{
   constructor(cities = [], offers = [], point) {
+    super();
+
     this._cities = cities;
     this._offers = offers;
     this._point = point;
-
-    this._element = null;
   }
 
   getTemplate() {
     return createTemplate(this._cities, this._offers, this._point);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
