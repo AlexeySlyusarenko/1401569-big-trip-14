@@ -21,42 +21,75 @@ import {
 const siteHeaderElement = document.querySelector('.page-header');
 const siteMainElement = document.querySelector('.page-main');
 
-const tripMainElem = siteHeaderElement.querySelector('.trip-main');
-renderElement(tripMainElem, new TripElement(mockPoints).getElement(), 'afterbegin');
+const tripMainElement = siteHeaderElement.querySelector('.trip-main');
+if(mockPoints.length) {
+  renderElement(tripMainElement, new TripElement(mockPoints).getElement(), 'afterbegin');
+}
 
-const tripControlsElem = tripMainElem.querySelector('.trip-controls');
-renderElement(tripControlsElem, new MenuElement().getElement());
-renderElement(tripControlsElem, new FilterElement().getElement());
+const tripControlsElement = tripMainElement.querySelector('.trip-controls');
+renderElement(tripControlsElement, new MenuElement().getElement());
+renderElement(tripControlsElement, new FilterElement().getElement());
 
 const tripEventsElement = siteMainElement.querySelector('.trip-events');
 renderElement(tripEventsElement, new SortElement(TRIP_SORT_LIST).getElement());
 
-renderElement(
-  tripEventsElement,
-  createElement('<ul class="trip-events__list"></ul>'),
-);
-
-const tripEventsListElement = tripEventsElement.querySelector('.trip-events__list');
-
 const renderPoint = (container, point, mockCities, mockOffers) => {
   const pointComponent = new PointElement(point);
   const pointFormComponent = new FormPointElement(mockCities, mockOffers, point);
+  const pointElement = pointComponent.getElement();
+  const pointFormElement = pointFormComponent.getElement();
 
-  renderElement(container, pointComponent.getElement());
+  const showFormEditPoint = () => {
+    container.replaceChild(pointFormElement, pointElement);
+    document.addEventListener('keydown', onEscKeyDown);
+  };
+  const hideFormEditPoint = () => {
+    container.replaceChild(pointElement, pointFormElement);
+    document.removeEventListener('keydown', onEscKeyDown);
+  };
+  const onEscKeyDown = (event) => {
+    if (event.key === 'Escape' || event.key === 'Esc') {
+      event.preventDefault();
+      hideFormEditPoint();
+    }
+  };
 
-  pointComponent.getElement().querySelector('.event__rollup-btn').addEventListener('click', () => {
-    container.replaceChild(pointFormComponent.getElement(), pointComponent.getElement());
+  renderElement(container, pointElement);
+
+  pointElement.querySelector('.event__rollup-btn').addEventListener('click', () => {
+    showFormEditPoint();
   });
 
-  pointFormComponent.getElement().querySelector('.event__rollup-btn').addEventListener('click', () => {
-    container.replaceChild(pointComponent.getElement(), pointFormComponent.getElement());
+  pointFormElement.querySelector('.event__rollup-btn').addEventListener('click', () => {
+    hideFormEditPoint();
   });
 
-  pointFormComponent.getElement().querySelector('form').addEventListener('submit', () => {
-    container.replaceChild(pointComponent.getElement(), pointFormComponent.getElement());
+  pointFormElement.querySelector('form').addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    hideFormEditPoint();
   });
 };
 
-for (const point of mockPoints) {
-  renderPoint(tripEventsListElement, point, mockCities, mockOffers);
-}
+const renderPointList = (container, pointsList) => {
+  if (!pointsList.length) {
+    renderElement(
+      tripEventsElement,
+      createElement('<p class="trip-events__msg">Click New Event to create your first point</p>'),
+    );
+
+    return;
+  }
+
+  renderElement(
+    tripEventsElement,
+    createElement('<ul class="trip-events__list"></ul>'),
+  );
+
+  const tripListElement = container.querySelector('.trip-events__list');
+
+  for (const point of mockPoints) {
+    renderPoint(tripListElement, point, mockCities, mockOffers);
+  }
+};
+
+renderPointList(tripEventsElement, mockPoints);

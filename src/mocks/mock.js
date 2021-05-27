@@ -16,7 +16,7 @@ import {getMockPoint} from './mock-point.js';
 export const mockCities = CITY_LIST.map((value) => getMockCity(value, CITY_DESCRIPTION));
 export const mockOffers = TYPE_LIST.map((value) => getMockOffer(value, DATA_LIST));
 export const mockPoints = [];
-const NUMBER_POINT = 30;
+const NUMBER_POINT = 10;
 
 for (let i = 0; i < NUMBER_POINT; i++) {
   mockPoints.push(
